@@ -74,10 +74,18 @@ def create_pdf(d, items_df, summary, sigs, remark_text, show_vat_line, doc_title
         pdf.set_font(use_f, 'B', 26)
         pdf.cell(0, 10, doc_title, 0, 1, 'C')
 
-        # --- ส่วนข้อมูลลูกค้า (แก้ไขให้ชิดกัน 1 เคาะเป๊ะ) ---
+       # --- ส่วนข้อมูลลูกค้า (เพิ่มบรรทัดประกาศตัวแปรก่อนเรียกใช้) ---
         pdf.set_y(60)
         start_y = pdf.get_y()
         
+        # 1. ดึงข้อมูลจาก d มาใส่ตัวแปรก่อน (สำคัญมาก!)
+        c_name = d.get('c_name', '')
+        contact = d.get('contact', '')
+        c_addr = d.get('c_addr', '')
+        c_tel = d.get('c_tel', '')
+        
+        # 2. พิมพ์ข้อมูล (ตัวแปรจะมีค่าแล้ว ไม่ Error)
+        pdf.set_font(use_f, 'B', 14)
         pdf.cell(0, 7, f"ลูกค้า: {c_name}", 0, 1)
         
         pdf.set_x(15)
