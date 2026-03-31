@@ -104,8 +104,8 @@ def create_pdf(d, items_df, summary, sigs, remark_text, show_vat_line, doc_title
             0, 'L')
 
     # ================= TABLE HEADER =================
-    cols_w = [12, 73, 15, 15, 25, 15, 25] 
-    headers = ["ลำดับ", "รายการสินค้า", "จำนวน", "หน่วย", "ราคา/หน่วย", "ส่วนลด", "จำนวนเงิน"]
+    cols_w = [12, 128, 20, 20, 27] 
+    headers = ["ลำดับ", "รายการสินค้า", "จำนวน", "หน่วย", "ราคา/หน่วย"]
 
     def draw_table_header():
         pdf.set_fill_color(240, 240, 240)
@@ -128,7 +128,7 @@ def create_pdf(d, items_df, summary, sigs, remark_text, show_vat_line, doc_title
         dis = to_f(row.get('ส่วนลด'))
         total = round((q * p) - dis, 2)
 
-        vals = [str(index + 1), str(row.get('รายการ')), f"{q:,.2f}", safe_str(row.get('หน่วย')), f"{p:,.2f}", f"{dis:,.2f}" if dis > 0 else "-", f"{total:,.2f}"]
+        vals = [str(index + 1), str(row.get('รายการ')), f"{q:,.2f}", safe_str(row.get('หน่วย')), f"{p:,.2f}"]
 
         max_lines = 1
         for j, txt in enumerate(vals):
