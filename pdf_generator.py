@@ -76,25 +76,32 @@ def create_pdf(d, items_df, summary, sigs, remark_text, show_vat_line, doc_title
         pdf.set_font(use_f, 'B', 26)
         pdf.cell(0, 10, doc_title, 0, 1, 'C')
 
-       # --- ส่วนข้อมูลลูกค้า (ปรับใหม่ให้ชิดกัน 1 เคาะเป๊ะ) ---
+       # --- วางทับตั้งแต่ตรงนี้ ---
         pdf.set_y(60)
+        start_y = pdf.get_y()
+        
         pdf.set_font(use_f, 'B', 14)
+        # รวมหัวข้อกับชื่อเป็นก้อนเดียวเพื่อลบช่องว่าง 
+        pdf.cell(0, 7, f"ลูกค้า: {d.get('c_name', '')}", 0, 1) 
         
-        # 1. บรรทัดลูกค้า (รวมเป็นข้อความเดียว ไม่แยก Cell)
-        c_name = d.get('c_name', '')
-        pdf.cell(0, 7, f"ลูกค้า: {c_name}", 0, 1) # [cite: 1, 2]
-        
-        # 2. บรรทัดผู้ติดต่อ (รวมเป็นข้อความเดียว)
         pdf.set_x(15)
-        contact = d.get('contact', '')
-        pdf.cell(0, 7, f"ผู้ติดต่อ: {contact}", 0, 1) # [cite: 1, 2]
+        pdf.set_font(use_f, 'B', 14)
+        # รวมหัวข้อกับชื่อผู้ติดต่อเป็นก้อนเดียว 
+        pdf.cell(0, 7, f"ผู้ติดต่อ: {d.get('contact', '')}", 0, 1) 
         
-        # 3. ที่อยู่และเบอร์โทร (แสดงผลตามปกติ)
         pdf.set_x(15)
         pdf.set_font(use_f, '', 14)
-        c_addr = d.get('c_addr', '')
-        c_tel = d.get('c_tel', '')
-        pdf.multi_cell(110, 6, f"ที่อยู่: {c_addr}\nโทร: {c_tel}", 0, 'L') # [cite: 1, 2]
+        # ที่อยู่และเบอร์โทรพิมพ์ตามปกติ 
+        pdf.multi_cell(110, 6, f"ที่อยู่: {d.get('c_addr', '')}\nโทร: {d.get('c_tel', '')}", 0, 'L') 
+        
+        # ข้อมูลฝั่งขวา (กำหนดส่ง/ยืนราคา) 
+        pdf.set_xy(135, start_y)
+        pdf.multi_cell(65, 7, 
+            f"กำหนดส่ง: {d.get('due_date', '')}\n"
+            f"ยืนราคา: {d.get('valid_days', '')} วัน\n"
+            f"ครบกำหนด: {d.get('exp_date', '')}", 
+            0, 'L')
+        # --- วางทับถึงตรงนี้ ---
         
         pdf.set_xy(135, start_y)
         pdf.multi_cell(65, 7, 
