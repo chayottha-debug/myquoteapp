@@ -76,23 +76,25 @@ def create_pdf(d, items_df, summary, sigs, remark_text, show_vat_line, doc_title
         pdf.set_font(use_f, 'B', 26)
         pdf.cell(0, 10, doc_title, 0, 1, 'C')
 
+       # --- ส่วนข้อมูลลูกค้า (ปรับใหม่ให้ชิดกัน 1 เคาะเป๊ะ) ---
         pdf.set_y(60)
-        start_y = pdf.get_y()
-        
-        pdf.set_y(60)
-        start_y = pdf.get_y()
-        
-        # --- ส่วนที่แก้ไขให้ชิดกัน (ใช้ f-string รวมก้อนเดียว) ---
         pdf.set_font(use_f, 'B', 14)
-        pdf.cell(0, 7, f"ลูกค้า: {d.get('c_name', '')}", 0, 1) # วางทับบรรทัดลูกค้าเดิม 
         
-        pdf.set_x(15)
-        pdf.set_font(use_f, 'B', 14)
-        pdf.cell(0, 7, f"ผู้ติดต่อ: {d.get('contact', '')}", 0, 1) # วางทับบรรทัดผู้ติดต่อเดิม 
-        # --------------------------------------------------
+        # 1. บรรทัดลูกค้า (รวมเป็นข้อความเดียว ไม่แยก Cell)
+        c_name = d.get('c_name', '')
+        pdf.cell(0, 7, f"ลูกค้า: {c_name}", 0, 1) # [cite: 1, 2]
         
+        # 2. บรรทัดผู้ติดต่อ (รวมเป็นข้อความเดียว)
         pdf.set_x(15)
-        pdf.multi_cell(110, 6, f"ที่อยู่: {d.get('c_addr', '')}\nโทร: {d.get('c_tel', '')}", 0, 'L')
+        contact = d.get('contact', '')
+        pdf.cell(0, 7, f"ผู้ติดต่อ: {contact}", 0, 1) # [cite: 1, 2]
+        
+        # 3. ที่อยู่และเบอร์โทร (แสดงผลตามปกติ)
+        pdf.set_x(15)
+        pdf.set_font(use_f, '', 14)
+        c_addr = d.get('c_addr', '')
+        c_tel = d.get('c_tel', '')
+        pdf.multi_cell(110, 6, f"ที่อยู่: {c_addr}\nโทร: {c_tel}", 0, 'L') # [cite: 1, 2]
         
         pdf.set_xy(135, start_y)
         pdf.multi_cell(65, 7, 
