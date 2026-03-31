@@ -80,15 +80,15 @@ def create_pdf(d, items_df, summary, sigs, remark_text, show_vat_line, doc_title
         start_y = pdf.get_y()
         
         pdf.set_font(use_f, 'B', 14)
-        pdf.cell(15, 7, "ลูกค้า: ", 0, 0)
+        pdf.cell(12, 7, "ลูกค้า: ", 0, 0) # ปรับจาก 15 เหลือ 12 เพื่อให้ชื่อขยับมาซ้ายขึ้น [cite: 1, 8]
         pdf.set_font(use_f, '', 14)
-        pdf.cell(0, 7, f"{d.get('c_name', '')}", 0, 1)
-        
+        pdf.cell(0, 7, f"{d.get('c_name', '')}", 0, 1) [cite: 9]
+
         pdf.set_x(15)
         pdf.set_font(use_f, 'B', 14)
-        pdf.cell(20, 7, "ผู้ติดต่อ: ", 0, 0)
+        pdf.cell(15, 7, "ผู้ติดต่อ: ", 0, 0) # ปรับจาก 20 เหลือ 15 
         pdf.set_font(use_f, '', 14)
-        pdf.cell(0, 7, f"{d.get('contact', '')}", 0, 1)
+        pdf.cell(0, 7, f"{d.get('contact', '')}", 0, 1) [cite: 10]
         
         pdf.set_x(15)
         pdf.multi_cell(110, 6, f"ที่อยู่: {d.get('c_addr', '')}\nโทร: {d.get('c_tel', '')}", 0, 'L')
