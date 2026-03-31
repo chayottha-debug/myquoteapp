@@ -205,7 +205,7 @@ def create_pdf(d, items_df, summary, sigs, remark_text, show_vat_line, doc_title
                 with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp:
                     tmp.write(images[i].getvalue())
                     tmp_path = tmp.name
-                pdf.image(tmp_path, x=x_positions[i] + 5, y=y_sig - 12, w=30, h=12)
+                pdf.image(tmp_path, x=x_positions[i] + 5, y=y_sig - 12, w=60, h=25)
                 os.remove(tmp_path)
             except: pass
 
