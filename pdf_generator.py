@@ -104,7 +104,7 @@ def create_pdf(d, items_df, summary, sigs, remark_text, show_vat_line, doc_title
             0, 'L')
 
     # ================= TABLE HEADER =================
-    cols_w = [12, 128, 20, 20, 27] 
+    cols_w = [12, 98, 20, 20, 30] 
     headers = ["ลำดับ", "รายการสินค้า", "จำนวน", "หน่วย", "ราคา/หน่วย"]
 
     def draw_table_header():
