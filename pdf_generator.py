@@ -78,17 +78,14 @@ def create_pdf(d, items_df, summary, sigs, remark_text, show_vat_line, doc_title
         pdf.set_y(60)
         start_y = pdf.get_y()
         
-        pdf.set_font(use_f, 'B', 14)
-        # ใช้ f-string รวมหัวข้อและชื่อเข้าด้วยกันเพื่อลบช่องว่างส่วนเกิน
-        pdf.cell(0, 7, f"ลูกค้า: {d.get('c_name', '')}", 0, 1) [cite: 1, 2]
+        pdf.cell(0, 7, f"ลูกค้า: {c_name}", 0, 1)
         
         pdf.set_x(15)
-        pdf.set_font(use_f, 'B', 14)
-        pdf.cell(0, 7, f"ผู้ติดต่อ: {d.get('contact', '')}", 0, 1) [cite: 1, 2]
+        pdf.cell(0, 7, f"ผู้ติดต่อ: {contact}", 0, 1)
         
         pdf.set_x(15)
         pdf.set_font(use_f, '', 14)
-        pdf.multi_cell(110, 6, f"ที่อยู่: {d.get('c_addr', '')}\nโทร: {d.get('c_tel', '')}", 0, 'L') [cite: 1, 2]
+        pdf.multi_cell(110, 6, f"ที่อยู่: {c_addr}\nโทร: {c_tel}", 0, 'L')
         
         # ข้อมูลฝั่งขวา
         pdf.set_xy(135, start_y)
