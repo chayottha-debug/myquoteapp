@@ -383,7 +383,7 @@ with tab1:
         
         with f_col1:
             st.markdown("##### 📝 หมายเหตุ & การอนุมัติ")
-            st.text_area("หมายเหตุ (Remarks)", value="1. ราคายังไม่รวม VAT 7%\n2. ระยะเวลาทำงาน 30 วัน", key="remark_in", height=100, label_visibility="collapsed")
+            st.text_area("หมายเหตุ (Remarks)", value="1. แบ่งชำระ", key="remark_in", height=100, label_visibility="collapsed")
             
             st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
             s1, s2 = st.columns(2)
